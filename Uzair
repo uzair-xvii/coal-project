@@ -182,6 +182,104 @@ Subtraction proc
     
     
     cmp al, 2
+mod proc 
+  
+    mov ax, @data
+    mov ds, ax
+
+    call newline
+    call newline
+    
+    mov ah, 09h
+    mov dx, offset msg22
+    int 21h
+      call newline
+    call newline
+    EnterFirstNumber msg6
+
+    MOV AH, 1
+    INT 21H
+    call newline
+    call newline
+    SUB AL, 30H
+    MOV NUM1, AL
+
+    EnterSecondNumber msg7
+
+    MOV AH, 1
+    INT 21H
+    call newline
+    SUB AL, 30H
+    MOV NUM2, AL
+
+    MOV CL, NUM1
+    MOV CH, 00
+    MOV AX, CX
+
+    DIV NUM2
+    MOV RESULT, AL
+    MOV REMAINDER, AH
+    MOV AH, 00
+    AAD
+
+    ADD AH, 30H
+    ADD AL, 30H
+
+    MOV BX, AX
+
+   call newline
+  mov dx, offset msg8
+    mov ah, 9
+    int 21h
+
+    mov dl, REMAINDER
+    add dl, 30h
+    mov ah, 2
+    int 21h
+
+    call newline
+    mov dx, offset msg14
+    mov ah, 9
+    int 21h
+    call newline
+
+    mov dx, offset msg9
+    mov ah, 9
+    int 21h
+
+    mov ah, 1
+    int 21h
+    sub al, 48
+
+    cmp al, 1
+    je call start
+    call newline
+
+    cmp al, 2
+    je call exit
+    call newline
+
+    int 21h
+    ret
+
+    mod endp
+  
+exit proc 
+    call newline
+    mov dx, offset msg21
+    mov ah, 9    
+    int 21h
+    mov ah, 4ch
+    int 21h
+exit endp
+
+end main
+
+
+
+
+
+
     je call exit
      
     int 21h   
